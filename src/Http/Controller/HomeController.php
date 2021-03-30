@@ -17,4 +17,13 @@ class HomeController extends AbstractController
     {
         return $this->render('pages/index.html.twig');
     }
+
+
+    /**
+     * @Route("/layout", name="app_layout")
+     */
+    public function getLayout(): Response
+    {
+        return $this->render('pages/layout.html.twig');
+    }
 }
