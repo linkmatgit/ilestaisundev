@@ -10,7 +10,7 @@ tt:
 	vendor/bin/phpunit-watcher watch --filter="nothing"
 
 test:
-	vendor/bin/phpunit
+	php bin/phpunit
 cov:
 	$(sy) cache:clear --env=test
 	$(sy) doctrine:schema:validate --skip-sync
