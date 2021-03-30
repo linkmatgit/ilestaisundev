@@ -41,11 +41,7 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: PHPUnit Tests
-        uses: php-actions/phpunit@v2
-        with:
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml.dist
-          args: --coverage-text
+      - name: run tests
+          run: /usr/bin/php -f bin/phpunit > output.txt
       - name: Lint Le code
         run: make lint
