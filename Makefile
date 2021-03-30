@@ -1,7 +1,7 @@
 sy := php bin/console
 .PHONY: analyze
 lint:
-	vendor/bin/phpstan analyse
+	php vendor/bin/phpstan analyse
 
 lintContainer:
 	$(sy) lint:container
