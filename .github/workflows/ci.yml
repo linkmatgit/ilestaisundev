@@ -41,7 +41,5 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: run tests
-        run: /usr/bin/php -f bin/phpunit > output.txt
       - name: Lint Le code
         run: make lint
