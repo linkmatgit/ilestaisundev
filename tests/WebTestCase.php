@@ -9,22 +9,17 @@ use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
     protected KernelBrowser $client;
-    protected EntityManagerInterface $em;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->client = self::createClient();
-      /** @var EntityManagerInterface $em */
-        $em = self::$container->get(EntityManagerInterface::class);
-        $this->em = $em;
-        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+
         parent::setUp();
     }
 
     protected function tearDown(): void
     {
-        $this->em->clear();
         parent::tearDown();
     }
 
@@ -77,7 +72,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         $this->assertEquals(
             $title,
             $crawler->filter('h1')->text(),
-            '<h1> missmatch'
+            '<h1> mismatch'
         );
     }
 
@@ -87,7 +82,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         $this->assertEquals(
             $title . ' | Linkmat',
             $crawler->filter('title')->text(),
-            '<title> missmatch',
+            '<title> mismatch',
         );
     }
 
