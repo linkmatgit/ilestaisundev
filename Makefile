@@ -48,8 +48,7 @@ serve:
 watch:
 	yarn dev
 
-lintci: vendor/autoload.php
+lintci:
 	docker run -v $(PWD):/app -w /app --rm php:7.4-cli-alpine php -d memory_limit=-1 ./vendor/bin/phpstan analyse
-vendor/autoload.php: composer.lock
-	php composer install
+
 
