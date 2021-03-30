@@ -1,7 +1,7 @@
 sy := php bin/console
 dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
 drtest := $(dc) -f docker-compose.test.yml run --rm
-.PHONY: analyze
+
 .PHONY: lint
 lint: vendor/autoload.php ## Analyse le code
 	docker run -v $(PWD):/app -w /app -t --rm php:7.4-cli-alpine php -d memory_limit=-1 bin/console lint:container
