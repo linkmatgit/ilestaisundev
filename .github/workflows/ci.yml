@@ -43,5 +43,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Test Unitaire
         uses: php-actions/phpunit@v2
+        with:
+          configuration: phpunit.xml.dist
       - name: Lint Le code
         run: make lint
