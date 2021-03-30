@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="turbolinks-cache-control" content="no-cache"/>
+      <meta charset="UTF-8">
+      <title>{% block title 'Linkmat' %} | Linkmat</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
+
+        {% block javascripts %}
+        {{ encore_entry_script_tags('App.js') }}
+        {% endblock %}
+    </head>
+    <body>
+    <h1>Mon Sites</h1>
+        {% block body %}{% endblock %}
+
+    </body>
+</html>
