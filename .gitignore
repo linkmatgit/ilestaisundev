@@ -24,3 +24,5 @@
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+/.idea/
+/node_modules/
