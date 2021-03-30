@@ -42,4 +42,4 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
       - name: Lint Le code
-        run: make lint
+        run: make lintci
