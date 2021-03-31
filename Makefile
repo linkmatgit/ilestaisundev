@@ -4,20 +4,15 @@ drtest := $(dc) -f docker-compose.test.yml run --rm
 
 .PHONY: lint
 lint: vendor/autoload.php ## Analyse le code
-	docker run -v $(PWD):/app -w /app -t --rm php:7.4-cli-alpine php -d memory_limit=-1 bin/console lint:container
-	docker run -v $(PWD):/app -w /app -t --rm php:7.4-cli-alpine php -d memory_limit=-1 ./vendor/bin/phpstan analyse
-
-lintContainer:
-	$(sy) lint:container
+	docker run -v $(PWD):/app -w /app -t --rm php:8.0-cli-alpine php -d memory_limit=-1 bin/console lint:container
+	docker run -v $(PWD):/app -w /app -t --rm php:8.0-cli-alpine php -d memory_limit=-1 ./vendor/bin/phpstan analyse
 tt:
 	$(sy) cache:clear --env=test
 	vendor/bin/phpunit-watcher watch --filter="nothing"
 
 .PHONY: test
-test: vendor/autoload.php node_modules/time ## Execute les tests
-	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
-	$(drtest) phptest vendor/bin/phpunit
-	$(node) yarn run test
+test: vendor/autoload.php  ## Execute les tests
+	 php vendor/bin/phpunit
 cov:
 	$(sy) cache:clear --env=test
 	$(sy) doctrine:schema:validate --skip-sync
@@ -46,16 +41,33 @@ rollback:
 .PHONY: format
 format: ## Formate le code
 	npx prettier-standard --lint --changed "assets/**/*.{js,css,jsx}"
-	./vendor/bin/phpcbf
-	./vendor/bin/php-cs-fixer fix
+	php vendor/bin/phpcbf
+	php vendor/bin/php-cs-fixer fix
 
 serve:
 	php -S localhost:8000 -t public
 
 watch:
 	yarn dev
+build:
+	$(MAKE) prepare-test
+	$(MAKE) analyze
+	$(MAKE) tests
+prepare-test:
+	npm install
+	npm run dev
+	composer install --prefer-dist
+	php bin/console cache:clear --env=test
+	php bin/console doctrine:database:drop --if-exists -f --env=test
+	php bin/console doctrine:database:create --env=test
+	php bin/console doctrine:schema:update -f --env=test
+	php bin/console doctrine:fixtures:load -n --env=test
+analyze:
+	npm audit
+	composer valid
+	php bin/console doctrine:schema:valid --skip-sync --env=test
+	php bin/phpcs
 
-lintci:
-	docker run -v $(PWD):/app -w /app --rm php:7.4-cli-alpine php -d memory_limit=-1 ./vendor/bin/phpstan analyse
-
-
+.PHONY: tests
+tests:
+	php bin/phpunit

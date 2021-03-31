@@ -26,9 +26,8 @@ services:
 
     App\Http\Twig\ViteAssetsExtension:
       arguments:
-        $isDev: '%env(VITE_ASSETS)%'
-        $manifest: '%kernel.project_dir%/public/assets/manifest.json'
-        $cache: '@vite_cache_pool'
+        $assetPath: '%kernel.project_dir%/public/assets'
+        $env: '%kernel.environment%'
 
     App\Http\Admin\Firewall\AdminRequestListener:
       arguments: ['%admin_prefix%']

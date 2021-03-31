@@ -47,7 +47,7 @@
     "twig/twig": "^2.12|^3.0"
   },
     "require-dev": {
-    "doctrine/doctrine-fixtures-bundle": "^3.3",
+      "doctrine/doctrine-fixtures-bundle": "^3.3",
     "phpstan/phpstan": "^0.12.54",
     "phpstan/phpstan-doctrine": "^0.12.22",
     "phpstan/phpstan-mockery": "^0.12.3",
