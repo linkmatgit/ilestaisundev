@@ -54,8 +54,6 @@ build:
 	$(MAKE) analyze
 	$(MAKE) tests
 prepare-test:
-	npm install
-	npm run dev
 	composer install --prefer-dist
 	php bin/console cache:clear --env=test
 	php bin/console doctrine:database:drop --if-exists -f --env=test
