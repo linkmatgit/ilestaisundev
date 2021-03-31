@@ -54,13 +54,13 @@ build:
 	$(MAKE) analyze
 	$(MAKE) tests
 prepare-test:
+	npm install
 	composer install --prefer-dist
 	php bin/console cache:clear --env=test
-
 analyze:
-	npm audit
+	yarn audit
 	composer valid
-	php bin/phpcs
+	php -d memory_limit=-1 ./vendor/bin/phpstan analyse
 
 .PHONY: tests
 tests:
