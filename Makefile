@@ -54,9 +54,9 @@ build:
 	$(MAKE) analyze
 	$(MAKE) tests
 prepare-test:
+	npm install
 	composer install --prefer-dist
 	php bin/console cache:clear --env=test
-
 analyze:
 	npm audit
 	composer valid
