@@ -12,11 +12,13 @@ jobs:
         node-version: ['14.7']
     services:
       mysql:
-        image: mysql:8.0
+        image: postgres:12
         env:
-          MYSQL_ROOT_PASSWORD: 'password'
+          POSTGRES_PASSWORD: test
+          POSTGRES_USER: test
+          POSTGRES_DB: test
         ports:
-          - 3306:3306
+          - 5433:5433
     steps:
       - name: Checkout
         uses: actions/checkout@v2
