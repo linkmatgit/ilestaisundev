@@ -1,0 +1,11 @@
+.flex {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  & > * {
+    min-width: 0;
+  }
+}
+.flex-start {
+  justify-content: flex-start;
+}

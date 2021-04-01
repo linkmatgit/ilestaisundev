@@ -1,0 +1,19 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;900&family=Roboto:wght@300;400;500;700;900&display=swap');
+$font: 'Roboto', sans-serif;
+$font-alt:  'Inter', sans-serif;
+
+
+h1,
+%h1,
+.h1{
+  font-size: 24px;
+  font-weight: bold;
+}
+%hero-title,
+.hero-title{
+  font-size: 52px;
+  font-family: $font-alt;
+  font-weight: 700;
+  line-height: 1.2;
+}

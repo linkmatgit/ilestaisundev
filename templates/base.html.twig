@@ -4,7 +4,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="turbolinks-cache-control" content="no-cache"/>
       <meta charset="UTF-8">
-      <title>{% block title 'Linkmat' %} | Linkmat</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <title>{% block title 'Linkmat' %} | Linkmat</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
@@ -15,7 +16,7 @@
         {% endblock %}
     </head>
     <body>
-    <h1>Mon Sites</h1>
+
         {% block body %}{% endblock %}
 
     </body>
