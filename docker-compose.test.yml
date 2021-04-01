@@ -1,8 +1,7 @@
-
 version: '3.3'
 services:
   phptest:
-    image: php/php:8.0-fpm
+    image: grafikart/php:1.0.4
     volumes:
       - .:/var/www:delegated
     links:

@@ -1,6 +1,13 @@
 sy := php bin/console
 dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
 drtest := $(dc) -f docker-compose.test.yml run --rm
+de := docker-compose exec
+dr := $(dc) run --rm
+sy := $(de) php bin/console
+drtest := $(dc) -f docker-compose.test.yml run --rm
+node := $(dr) node
+php := $(dr) --no-deps php
+
 
 .PHONY: lint
 lint: vendor/autoload.php ## Analyse le code
@@ -11,8 +18,9 @@ tt:
 	vendor/bin/phpunit-watcher watch --filter="nothing"
 
 .PHONY: test
-test: vendor/autoload.php  ## Execute les tests
-	 php vendor/bin/phpunit
+test: vendor/autoload.php ## Execute les tests
+	$(drtest) phptest bin/console doctrine:schema:validate --skip-sync
+	$(drtest) phptest vendor/bin/phpunit
 cov:
 	$(sy) cache:clear --env=test
 	$(sy) doctrine:schema:validate --skip-sync
@@ -65,3 +73,33 @@ analyze:
 .PHONY: tests
 tests:
 	php bin/phpunit
+
+.PHONY: build-docker
+build-docker:
+	$(dc) pull --ignore-pull-failures
+	$(dc) build php
+	$(dc) build node
+
+.PHONY: dev
+dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
+	$(dc) up
+# -----------------------------------
+# Dépendances
+# -----------------------------------
+vendor/autoload.php: composer.lock
+	$(php) composer install
+	touch vendor/autoload.php
+
+node_modules/time: yarn.lock
+	$(node) yarn
+	touch node_modules/time
+
+public/assets: node_modules/time
+	$(node) yarn run build
+
+var/dump:
+	mkdir var/dump
+
+public/assets/manifest.json: package.json
+	$(node) yarn
+	$(node) yarn run build
