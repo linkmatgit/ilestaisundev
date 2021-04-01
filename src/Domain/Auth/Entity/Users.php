@@ -2,38 +2,38 @@
 
 namespace App\Domain\Auth\Entity;
 
-use App\Repository\UserRepository;
+use App\Domain\Auth\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @ORM\Table(name="`user`")
  */
 class Users implements UserInterface
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private string $email = '';
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = ['ROLE_USER'];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password ='';
 
     public function getId(): ?int
     {

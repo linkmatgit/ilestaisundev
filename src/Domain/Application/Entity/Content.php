@@ -3,7 +3,9 @@
 namespace App\Domain\Application\Entity;
 
 use App\Domain\Application\Repository\ContentRepository;
+use App\Domain\Auth\Entity\Users;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ContentRepository::class)
@@ -15,37 +17,47 @@ class Content
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
-    private string $title;
+    private string $title ='';
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min='3', minMessage="Le message doit contenir minimum 3 caractere", max='254', maxMessage="Le message doit contenir mamimum 254 Caractere")
      */
-    private string $slug;
+    private string $slug ='';
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime_immutable")
+     *
      */
     private \DateTimeInterface $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private ?\DateTimeInterface $updatedAt;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean" , options={"default": 0})
      */
     private bool $online;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean" , options={"default": 0})
      */
     private bool $accepted;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Auth\Entity\Users")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private ?Users $author = null;
 
     public function getId(): ?int
     {
