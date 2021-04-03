@@ -24,9 +24,9 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
 
     public const LOGIN_ROUTE = 'app_login';
 
-    private $urlGenerator;
-    private $csrfTokenManager;
-    private $passwordEncoder;
+    private UrlGeneratorInterface $urlGenerator;
+    private CsrfTokenManagerInterface $csrfTokenManager;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
     public function __construct(UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {

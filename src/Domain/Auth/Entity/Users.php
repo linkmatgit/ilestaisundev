@@ -29,6 +29,7 @@ class Users implements UserInterface
      */
     private array $roles = ['ROLE_USER'];
 
+    private array $ip = ['127.0.0.1'];
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
@@ -93,6 +94,24 @@ class Users implements UserInterface
     {
         $this->password = $password;
 
+        return $this;
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function getIp(): array
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @param array|string[] $ip
+     * @return Users
+     */
+    public function setIp(array $ip): Users
+    {
+        $this->ip = $ip;
         return $this;
     }
 
