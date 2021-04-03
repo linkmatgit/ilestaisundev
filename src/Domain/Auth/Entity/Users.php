@@ -29,11 +29,12 @@ class Users implements UserInterface
      */
     private array $roles = ['ROLE_USER'];
 
+    private array $ip = ['127.0.0.1'];
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private string $password ='';
+    private string $password = '';
 
     public function getId(): ?int
     {
@@ -97,6 +98,24 @@ class Users implements UserInterface
     }
 
     /**
+     * @return array|string[]
+     */
+    public function getIp(): array
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @param array|string[] $ip
+     * @return Users
+     */
+    public function setIp(array $ip): Users
+    {
+        $this->ip = $ip;
+        return $this;
+    }
+
+    /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
@@ -110,7 +129,7 @@ class Users implements UserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;

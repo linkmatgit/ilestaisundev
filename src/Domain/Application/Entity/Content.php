@@ -23,14 +23,14 @@ class Content
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private string $title ='';
+    private string $title = '';
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min='3', minMessage="Le message doit contenir minimum 3 caractere", max='254', maxMessage="Le message doit contenir mamimum 254 Caractere")
      */
-    private string $slug ='';
+    private string $slug = '';
 
     /**
      * @ORM\Column(type="datetime_immutable")
