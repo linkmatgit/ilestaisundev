@@ -27,6 +27,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
     private UrlGeneratorInterface $urlGenerator;
     private CsrfTokenManagerInterface $csrfTokenManager;
     private UserPasswordEncoderInterface $passwordEncoder;
+    private ?UserInterface $user = null;
 
     public function __construct(UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -77,6 +78,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
 
     public function checkCredentials($credentials, UserInterface $user): bool
     {
+        $this->user = $user;
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
